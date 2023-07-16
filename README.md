@@ -30,15 +30,13 @@ cd cdf
 clang++ -std=c++17 ./src/main.cpp -o cdf
 ```
 
-### Installation
-
-Grant executing permissions
+### Grant permissions
 
 ```
 chmod +x cdf
 ```
 
-Move to binaries
+### Move to binaries
 
 ```
 sudo mv cdf /usr/local/bin
