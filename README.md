@@ -15,8 +15,6 @@ Such a tool probably exists already, but its my first useful cpp program, so her
 <li> C++ compiler (e.g. g++ or clang++)
 </ul>
 
-### Download
-
 #### Clone
 
 ```
@@ -30,13 +28,13 @@ cd cdf
 clang++ -std=c++17 ./src/main.cpp -o cdf
 ```
 
-### Grant permissions
+#### Grant permissions
 
 ```
 chmod +x cdf
 ```
 
-### Move to binaries
+#### Move to binaries
 
 ```
 sudo mv cdf /usr/local/bin
