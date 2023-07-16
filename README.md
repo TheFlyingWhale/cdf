@@ -3,8 +3,6 @@
 The name is pretty self explanatory.
 <br>
 A perfect tool when you have to create a directory with files that all share the same name.
-<br>
-Such a tool probably exists already, but its my first useful cpp program, so here it is 😎
 
 ## Installation
 
