@@ -4,7 +4,7 @@
 			"type": "cppbuild",
 			"label": "C/C++: clang++ build active file",
 			"command": "/usr/bin/clang++",
-			"args": ["-std=c++17", "./src/main.cpp", "-o", "main"],
+			"args": ["-std=c++17", "./src/main.cpp", "-o", "cdf"],
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
