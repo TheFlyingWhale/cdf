@@ -42,12 +42,9 @@ int main(int argc, char *argv[])
 void printHelp()
 {
 	printf("cdf - Create Directory with Files\n");
-	printf("Used to create a directory and files with desired name and extensions.\n");
 	printf("\n");
-	printf("Usage:\n");
-	printf("cdf [name] [extensions]...");
-	printf("Example:\n");
-	printf("cdf chunkOfCode cpp h\n");
-	printf("Creates a directory named chunkOfCode\n");
-	printf("Directory contains two files; chunkOfCode.cpp and chunkOfCode.h");
+	printf("usage: cdf [name dir and files] [<file extensions>]\n");
+	printf("\n");
+	printf("example: cdf someCode cpp h\n");
+	printf("Create a directory named 'someCode' which contains 'someCode.cpp' and 'someCode.h'\n");
 }

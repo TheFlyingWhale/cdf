@@ -1,3 +1,4 @@
-# cdf
+# cdf - Create Directory with Files
 
-Used for creating directories and files
+The name is pretty self explanatory.
+A perfect tool when you have to create a directory with files that all share the same name.

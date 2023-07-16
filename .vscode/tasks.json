@@ -4,18 +4,7 @@
 			"type": "cppbuild",
 			"label": "C/C++: clang++ build active file",
 			"command": "/usr/bin/clang++",
-			"args": [
-				"-std=c++17",
-				"-fcolor-diagnostics",
-				"-fansi-escape-codes",
-				"-L/opt/homebrew/Cellar/boost/1.82.0_1/lib",
-				"-lboost_system",
-				"-lboost_filesystem",
-				"-I./src/**",
-				"./src/main.cpp",
-				"-o",
-				"main"
-			],
+			"args": ["-std=c++17", "./src/main.cpp", "-o", "main"],
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
