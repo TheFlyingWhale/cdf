@@ -1,20 +1,20 @@
-#include "utilities.hpp"
+#include "confirmAction.hpp"
+#include "../color/color.hpp"
 #include <iostream>
+#include <string>
 using namespace std;
 
 string yesNo = " y/n - Yes/No";
 
-int determineConfirmation();
+int confirmAction()
+{
+	cout << "Do you wish to proceed?" << yesNo << endl;
+	return determineConfirmation();
+}
 
 int confirmAction(string prompt)
 {
 	cout << prompt << yesNo << endl;
-	return determineConfirmation();
-}
-
-int confirmAction()
-{
-	cout << "Do you wish to proceed?" << yesNo << endl;
 	return determineConfirmation();
 }
 

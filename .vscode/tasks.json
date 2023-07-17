@@ -10,6 +10,7 @@
 				"-fansi-escape-codes",
 				"./src/main.cpp",
 				"./src/**/*.cpp",
+				"./src/**/**/*.cpp",
 				"-o",
 				"cdf"
 			],

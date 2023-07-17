@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include "utilities.hpp"
+#include "confirmAction/confirmAction.hpp"
 #include <filesystem>
 using namespace std;
 namespace fs = filesystem;
@@ -27,7 +28,8 @@ void logExtension(string extension)
 
 void handleHeaderCreation(string &desiredName, string headerType)
 {
-	int insertDefinition = confirmAction("You're trying to create a " + headerType + " file.\nDo you wish to insert definitions?");
+	// int insertDefinition = confirmAction("You're trying to create a " + headerType + " file.\nDo you wish to insert definitions?");
+	int insertDefinition = confirmAction();
 	if (!insertDefinition)
 	{
 		createFile(desiredName, "hpp");

@@ -3,11 +3,13 @@
 #include <fstream>
 #include <variant>
 #include "utilities/utilities.hpp"
+#include "unordered_map"
 using namespace std;
 namespace fs = filesystem;
 
 void printHelp();
 int isItSafeToCreate(string desiredName);
+void createFiles(string *desiredName, unordered_map<string, string> *valueFlags, unordered_map<string, bool> *booleanFlags);
 
 int main(int argc, char *argv[])
 {
@@ -24,15 +26,22 @@ int main(int argc, char *argv[])
 	if (!isSafe)
 		return 1;
 
-	unordered_map<string, bool> flags;
-	unordered_map<string, string> flagsData;
+	unordered_map<string, string> valueFlags;
+	unordered_map<string, bool> booleanFlags;
+
+	if (!proccessArguments(argc, argv, &valueFlags, &booleanFlags))
+	{
+		cout << red("processFlags failed") << endl;
+		return 1;
+	}
+
+	printMap("Value flags:", valueFlags);
+	printf("\n");
+	printMap("Boolean flags", booleanFlags);
 
 	fs::create_directory(desiredName);
 
-	for (int i = 2; i < argc; i++)
-	{
-		handleExtension(argv[i], desiredName);
-	}
+	createFiles(&desiredName, &valueFlags, &booleanFlags);
 }
 
 void printHelp()
@@ -57,4 +66,41 @@ int isItSafeToCreate(string desiredName)
 	}
 
 	return 1;
+}
+
+string generateHeaderContent(string definition)
+{
+	return "#ifndef " + definition + "\n#define " + definition + "\n\n#endif";
+}
+
+string generateSourceContent(string desiredName)
+{
+	return "#include <" + desiredName + ".hpp>\n";
+}
+
+void createFiles(string *desiredName, unordered_map<string, string> *valueFlags, unordered_map<string, bool> *booleanFlags)
+{
+	if ((*booleanFlags).find("-h") != (*booleanFlags).end())
+	{
+		if (auto definition = (*valueFlags).find("-d"); definition != (*valueFlags).end())
+		{
+			createFile(*desiredName, "hpp", generateHeaderContent(definition->second));
+		}
+		else
+		{
+			createFile(*desiredName, "hpp");
+		}
+	}
+
+	if ((*booleanFlags).find("-s") != (*booleanFlags).end())
+	{
+		if (auto definition = (*valueFlags).find("-d"); definition != (*valueFlags).end())
+		{
+			createFile(*desiredName, "cpp", generateSourceContent(*desiredName));
+		}
+		else
+		{
+			createFile(*desiredName, "cpp");
+		}
+	}
 }
