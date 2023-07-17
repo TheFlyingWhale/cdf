@@ -7,12 +7,10 @@
 #include "confirmAction/confirmAction.hpp"
 #include "processArguments/processArguments.hpp"
 #include "printMap/printMap.hpp"
+#include "color/color.hpp"
 
 using namespace std;
 namespace fs = filesystem;
-
-string green(string text);
-string red(string text);
 
 void handleExtension(char *extension, string &desiredName);
 void logExtension(string extension);

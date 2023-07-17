@@ -13,13 +13,22 @@ int proccessArguments(int &argc, char *argv[], unordered_map<string, string> *va
 		if (strArg == "-h")
 		{
 			(*booleanFlags)["-h"] = true;
+			continue;
 		}
 
 		if (strArg == "-s")
 		{
 			(*booleanFlags)["-s"] = true;
+			continue;
 		}
 
+		if (strArg == "-i")
+		{
+			(*booleanFlags)["-i"] = true;
+			continue;
+		}
+
+		// If -d is provided but -h is not some error should occur
 		if (strArg == "-d")
 		{
 			if (i + 1 >= argc)
@@ -34,7 +43,15 @@ int proccessArguments(int &argc, char *argv[], unordered_map<string, string> *va
 			}
 
 			(*valueFlags)[strArg] = argv[i + 1];
+
+			// Iterate i and continue since the following arg has been handled
+			// Find a more elegant solution?
+			i++;
+			continue;
 		}
+
+		// If the loop reaches this point something went wrong
+		return 0;
 	}
 
 	return 1;
