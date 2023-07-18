@@ -4,6 +4,8 @@ The name is pretty self explanatory.
 <br>
 A perfect tool when you have to create a directory with files that all share the same name.
 
+### ! Constructive criticism is welcomed !
+
 ## Installation
 
 ### Prerequisites
@@ -23,7 +25,7 @@ git clone https://github.com/TheFlyingWhale/cdf.git
 
 ```
 cd cdf
-clang++ -std=c++17 ./src/main.cpp -o cdf
+clang++ -std=c++17 -fcolor-diagnostics -fansi-escape-codes ./src/main.cpp ./src/**/*.cpp ./src/**/**/*.cpp -o cdf
 ```
 
 #### Grant permissions
@@ -41,13 +43,20 @@ sudo mv cdf /usr/local/bin
 ## Usage
 
 ```
-cdf [name] [<extensions>]
+cdf [name] [-v] [-s] [-h] [-i] [-d <definition>]
+
+[name] - Name of directory and files
+[-v] - Verbose
+[-s] - Create source file
+[-h] - Create header file
+[-i] - Include import of header in source
+[-d <definition>] Insert provided definition in header
 ```
 
 ### Example
 
 ```
-cdf someCode cpp h
+cdf exampleCode -s -h -i -d EXAMPLE_CODE
 ```
 
-This creates a directory named 'someCode' in working directory, which contains someCode.cpp and someCode.h
+Check out the included exampleDirectory to see the results.

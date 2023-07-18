@@ -1,50 +1,36 @@
 #include <iostream>
-#include <filesystem>
 #include <fstream>
+#include "utilities/utilities.hpp"
+#include "unordered_map"
 using namespace std;
-namespace fs = filesystem;
-
-void printHelp();
 
 int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
-		printHelp();
+		printInstructions();
 		return 1;
 	}
+
+	unordered_map<string, string> valueFlags;
+	unordered_map<string, bool> booleanFlags;
 
 	string desiredName = argv[1];
-	fs::path currentDirectory = fs::current_path();
-	bool doesDirExist = fs::exists(desiredName);
-	bool isExistingDirEmpty = false;
 
-	if (doesDirExist)
+	if (!proccessArguments(argc, argv, &valueFlags, &booleanFlags))
 	{
-		isExistingDirEmpty = fs::is_empty(desiredName);
-	}
-
-	if (doesDirExist && !isExistingDirEmpty)
-	{
-		printf("\033[31mDirectory already exist\033[0m\n");
+		cout << "Invalid arguments provided\n\n";
+		printInstructions();
 		return 1;
 	}
 
-	fs::create_directory(desiredName);
+	bool verbose = booleanFlags.find("-v") != booleanFlags.end() ? true : false;
 
-	for (int i = 2; i < argc; i++)
-	{
-		ofstream file(currentDirectory.string() + "/" + desiredName + "/" + desiredName + "." + argv[i]);
-		file.close();
-	}
-}
+	if (verbose)
+		printFlags(&valueFlags, &booleanFlags);
 
-void printHelp()
-{
-	printf("cdf - Create Directory with Files\n");
-	printf("\n");
-	printf("usage: cdf [name dir and files] [<file extensions>]\n");
-	printf("\n");
-	printf("example: cdf someCode cpp h\n");
-	printf("Create a directory named 'someCode' which contains 'someCode.cpp' and 'someCode.h'\n");
+	if (!createDir(&desiredName, &verbose))
+		return 1;
+
+	createFiles(&desiredName, &valueFlags, &booleanFlags, &verbose);
 }
