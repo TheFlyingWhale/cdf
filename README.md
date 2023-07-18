@@ -24,8 +24,9 @@ git clone https://github.com/TheFlyingWhale/cdf.git
 #### Compile
 
 ```
-cd cdf
-clang++ -std=c++17 -fcolor-diagnostics -fansi-escape-codes ./src/main.cpp ./src/**/*.cpp ./src/**/**/*.cpp -o cdf
+cd cdf/
+clang++ -std=c++17 -fcolor-diagnostics -fansi-escape-codes ./src/**/*.cpp -o cdf
+
 ```
 
 #### Grant permissions
