@@ -85,5 +85,5 @@ string generateHeaderContent(string definition)
 
 string generateSourceContent(string desiredName)
 {
-	return "#include <" + desiredName + ".hpp>\n";
+	return "#include \"" + desiredName + ".hpp\"\n";
 }
