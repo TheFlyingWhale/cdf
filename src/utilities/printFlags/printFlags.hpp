@@ -13,7 +13,7 @@ void printMap(string title, unordered_map<KeyType, ValueType> *map)
 	cout << title << ": " << endl;
 	for (const auto &pair : *map)
 	{
-		cout << "\tKey:[" << pair.first << "] Value: [" << pair.second << "]\n";
+		cout << "Key:[" << pair.first << "] Value: [" << pair.second << "]\n";
 	}
 }
 
