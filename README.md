@@ -3,6 +3,7 @@
 The name is pretty self explanatory.
 <br>
 A perfect tool when you have to create a directory with files that all share the same name.
+The only supported language is C++ for now.
 
 ### ! Constructive criticism is welcomed !
 
