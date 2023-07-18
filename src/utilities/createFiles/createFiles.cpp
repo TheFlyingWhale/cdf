@@ -80,7 +80,7 @@ void createFile(string *desiredName, string extension, fs::path *workingDirector
 
 string generateHeaderContent(string definition)
 {
-	return "#ifndef " + definition + "\n#define " + definition + "\n\n#endif";
+	return "#ifndef " + definition + "\n#define " + definition + "\n\n#endif\n";
 }
 
 string generateSourceContent(string desiredName)
