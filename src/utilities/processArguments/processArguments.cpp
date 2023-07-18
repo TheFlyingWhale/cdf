@@ -7,25 +7,36 @@ using namespace std;
 
 int proccessArguments(int &argc, char *argv[], unordered_map<string, string> *valueFlags, unordered_map<string, bool> *booleanFlags)
 {
-	for (int i = 2; i < argc; i++)
+	for (int i = 1; i < argc; i++)
 	{
+		if (i == 1)
+		{
+			if (argv[i][0] == '-')
+			{
+				cout << red("The first argument provided is a flag and not a valid string\n");
+				return 0;
+			}
+		}
+
 		string strArg = string(argv[i]);
 		if (strArg == "-h")
 		{
 			(*booleanFlags)["-h"] = true;
-			continue;
 		}
 
 		if (strArg == "-s")
 		{
 			(*booleanFlags)["-s"] = true;
-			continue;
 		}
 
 		if (strArg == "-i")
 		{
 			(*booleanFlags)["-i"] = true;
-			continue;
+		}
+
+		if (strArg == "-v")
+		{
+			(*booleanFlags)["-v"] = true;
 		}
 
 		// If -d is provided but -h is not some error should occur
@@ -33,25 +44,18 @@ int proccessArguments(int &argc, char *argv[], unordered_map<string, string> *va
 		{
 			if (i + 1 >= argc)
 			{
-				cout << red("There was no valid argument after -d") << endl;
+				cout << red("-d was not provided with a valid definition") << endl;
 				return 0;
 			}
+
 			if (argv[i + 1][0] == '-')
 			{
-				cout << red("The following argument after -d was not a valid string") << endl;
+				cout << red("-d was followed by a flag, not a valid definition") << endl;
 				return 0;
 			}
 
 			(*valueFlags)[strArg] = argv[i + 1];
-
-			// Iterate i and continue since the following arg has been handled
-			// Find a more elegant solution?
-			i++;
-			continue;
 		}
-
-		// If the loop reaches this point something went wrong
-		return 0;
 	}
 
 	return 1;
