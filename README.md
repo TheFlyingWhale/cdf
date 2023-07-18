@@ -12,7 +12,7 @@ A perfect tool when you have to create a directory with files that all share the
 
 <ul>
 <li> Unix system
-<li> C++ compiler (e.g. g++ or clang++)
+<li> C++ compiler (e.g. clang++ or g++)
 </ul>
 
 #### Clone
