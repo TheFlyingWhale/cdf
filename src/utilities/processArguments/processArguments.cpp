@@ -1,12 +1,15 @@
 #include "processArguments.hpp"
 #include "../color/color.hpp"
+#include "../../modules/modules.hpp"
 #include <iostream>
 #include <unordered_map>
 #include <string>
 using namespace std;
 
-int proccessArguments(int &argc, char *argv[], unordered_map<string, string> *valueFlags, unordered_map<string, bool> *booleanFlags)
+int proccessArguments(int &argc, char *argv[])
 {
+	ArgumentsArchive &aa = ArgumentsArchive::getInstance();
+
 	for (int i = 1; i < argc; i++)
 	{
 		if (i == 1)
@@ -21,22 +24,22 @@ int proccessArguments(int &argc, char *argv[], unordered_map<string, string> *va
 		string strArg = string(argv[i]);
 		if (strArg == "-h")
 		{
-			(*booleanFlags)["-h"] = true;
+			aa.addFlag("-h", true);
 		}
 
 		if (strArg == "-s")
 		{
-			(*booleanFlags)["-s"] = true;
+			aa.addFlag("-s", true);
 		}
 
 		if (strArg == "-i")
 		{
-			(*booleanFlags)["-i"] = true;
+			aa.addFlag("-i", true);
 		}
 
 		if (strArg == "-v")
 		{
-			(*booleanFlags)["-v"] = true;
+			aa.addFlag("-v", true);
 		}
 
 		// If -d is provided but -h is not some error should occur
@@ -50,11 +53,11 @@ int proccessArguments(int &argc, char *argv[], unordered_map<string, string> *va
 
 			if (argv[i + 1][0] == '-')
 			{
-				cout << red("-d was followed by a flag, not a valid definition") << endl;
+				cout << red("-d was followed by [" + string(argv[i + 1]) + "] which is not a valid definition") << endl;
 				return 0;
 			}
 
-			(*valueFlags)[strArg] = argv[i + 1];
+			aa.addFlag("-d", argv[i + 1]);
 		}
 	}
 

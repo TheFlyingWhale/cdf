@@ -5,6 +5,6 @@
 
 using namespace std;
 
-int createDir(string *desiredName, bool *verbose);
+int createDir(string *desiredName);
 
 #endif

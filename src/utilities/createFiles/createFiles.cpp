@@ -1,5 +1,6 @@
 #include "createFiles.hpp"
 #include "../color/color.hpp"
+#include "../../modules/modules.hpp"
 #include <iostream>
 #include <fstream>
 #include <filesystem>
@@ -7,46 +8,48 @@
 using namespace std;
 namespace fs = filesystem;
 
-void createFiles(string *desiredName, unordered_map<string, string> *valueFlags, unordered_map<string, bool> *booleanFlags, bool *verbose)
+void createFiles(string *desiredName)
 {
 	fs::path workingDirectory = fs::current_path();
+	ArgumentsArchive &aa = ArgumentsArchive::getInstance();
+	bool verbose = aa.exists("-v");
 
-	if ((*booleanFlags).find("-h") != (*booleanFlags).end())
+	if (aa.exists("-h"))
 	{
-		if (*verbose)
+		if (verbose)
 			cout << "\nHeader file:\n";
 
-		if (auto definition = (*valueFlags).find("-d"); definition != (*valueFlags).end())
+		if (auto result = aa.find("-d"); result.found)
 		{
-			createFile(desiredName, "hpp", generateHeaderContent(definition->second), &workingDirectory, verbose);
-			if (*verbose)
+			createFile(desiredName, "hpp", generateHeaderContent(result.it->second), &workingDirectory, &verbose);
+			if (verbose)
 
 				cout << green("Successfully created with definition.\n");
 		}
 		else
 		{
-			createFile(desiredName, "hpp", &workingDirectory, verbose);
-			if (*verbose)
+			createFile(desiredName, "hpp", &workingDirectory, &verbose);
+			if (verbose)
 				cout << green("Successfully created.\n");
 		}
 	}
 
-	if ((*booleanFlags).find("-s") != (*booleanFlags).end())
+	if (aa.exists("-s"))
 	{
-		if (*verbose)
+		if (verbose)
 			cout << "\nSource file:\n";
 
 		// Handle creation of source file
-		if ((*booleanFlags).find("-i") != (*booleanFlags).end())
+		if (aa.exists("-i"))
 		{
-			createFile(desiredName, "cpp", generateSourceContent(*desiredName), &workingDirectory, verbose);
-			if (*verbose)
+			createFile(desiredName, "cpp", generateSourceContent(*desiredName), &workingDirectory, &verbose);
+			if (verbose)
 				cout << green("Successfully created with header.\n");
 		}
 		else
 		{
-			createFile(desiredName, "cpp", &workingDirectory, verbose);
-			if (*verbose)
+			createFile(desiredName, "cpp", &workingDirectory, &verbose);
+			if (verbose)
 				cout << green("Successfully created.\n");
 		}
 	}

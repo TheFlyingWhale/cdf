@@ -2,7 +2,6 @@
 #define UTILITIES
 
 #include "processArguments/processArguments.hpp"
-#include "printFlags/printFlags.hpp"
 #include "color/color.hpp"
 #include "printInstructions/printInstructions.hpp"
 #include "createDir/createDir.hpp"
