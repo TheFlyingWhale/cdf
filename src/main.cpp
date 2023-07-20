@@ -1,7 +1,10 @@
+#include "utilities/utilities.hpp"
+#include "modules/modules.hpp"
+#include "unordered_map"
+
 #include <iostream>
 #include <fstream>
-#include "utilities/utilities.hpp"
-#include "unordered_map"
+
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -12,25 +15,21 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	unordered_map<string, string> valueFlags;
-	unordered_map<string, bool> booleanFlags;
-
+	ArgumentsArchive &aa = ArgumentsArchive::getInstance();
 	string desiredName = argv[1];
 
-	if (!proccessArguments(argc, argv, &valueFlags, &booleanFlags))
+	if (!proccessArguments(argc, argv))
 	{
 		cout << "Invalid arguments provided\n\n";
 		printInstructions();
 		return 1;
 	}
 
-	bool verbose = booleanFlags.find("-v") != booleanFlags.end() ? true : false;
+	if (aa.exists("-v"))
+		aa.printFlags();
 
-	if (verbose)
-		printFlags(&valueFlags, &booleanFlags);
-
-	if (!createDir(&desiredName, &verbose))
+	if (!createDir(&desiredName))
 		return 1;
 
-	createFiles(&desiredName, &valueFlags, &booleanFlags, &verbose);
+	createFiles(&desiredName);
 }

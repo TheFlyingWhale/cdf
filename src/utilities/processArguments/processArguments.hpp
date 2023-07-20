@@ -4,6 +4,6 @@
 #include <string>
 using namespace std;
 
-int proccessArguments(int &argc, char *argv[], unordered_map<string, string> *valueFlags, unordered_map<string, bool> *booleanFlags);
+int proccessArguments(int &argc, char *argv[]);
 
 #endif

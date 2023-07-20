@@ -13,5 +13,5 @@ void printInstructions()
 	printf("[-s] - Create source file\n");
 	printf("[-h] - Create header file\n");
 	printf("[-i] - Include import of header in source\n");
-	printf("[-d <definition>] - Include provided definition in header");
+	printf("[-d <definition>] - Include provided definition in header\n");
 }
