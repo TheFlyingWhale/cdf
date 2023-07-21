@@ -36,10 +36,21 @@ int createDir(string *desiredName)
 		}
 	}
 
-	fs::create_directory(*desiredName);
-
-	if (aa.exists("-v"))
-		cout << green("Directory created\n");
+	try
+	{
+		fs::create_directory(*desiredName);
+		if (aa.exists("-v"))
+			cout << green("Directory created\n");
+	}
+	catch (const fs::filesystem_error &e)
+	{
+		cout << red("Failed to create directory\n");
+		printf("Error: %s", e.what());
+	}
+	catch (...)
+	{
+		cout << red("Unknown error occurred. Failed to create directory\n");
+	}
 
 	return 1;
 }
