@@ -20,7 +20,7 @@ int createDir(string *desiredName)
 	if (verbose && doesDirExist)
 		printIsExistingInfo(isExistingDirEmpty);
 
-	if (!isExistingDirEmpty)
+	if (doesDirExist && !isExistingDirEmpty)
 		return 0;
 
 	try
