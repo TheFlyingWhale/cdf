@@ -16,43 +16,57 @@ void createFiles(string *desiredName)
 
 	if (argArc.exists("-h"))
 	{
-		if (verbose)
-			cout << "\nHeader file:\n";
-
-		if (auto result = argArc.find("-d"); result.found)
-		{
-			createFile(desiredName, "hpp", generateHeaderContent(result.it->second), &workingDirectory, &verbose);
-			if (verbose)
-
-				cout << green("Successfully created with definition.\n");
-		}
-		else
-		{
-			createFile(desiredName, "hpp", &workingDirectory, &verbose);
-			if (verbose)
-				cout << green("Successfully created.\n");
-		}
+		createHeaderFile(desiredName);
 	}
 
 	if (argArc.exists("-s"))
 	{
-		if (verbose)
-			cout << "\nSource file:\n";
-
-		// Handle creation of source file
-		if (argArc.exists("-i"))
-		{
-			createFile(desiredName, "cpp", generateSourceContent(*desiredName), &workingDirectory, &verbose);
-			if (verbose)
-				cout << green("Successfully created with header.\n");
-		}
-		else
-		{
-			createFile(desiredName, "cpp", &workingDirectory, &verbose);
-			if (verbose)
-				cout << green("Successfully created.\n");
-		}
+		createSourceFile(desiredName);
 	}
+}
+
+void createHeaderFile(string *desiredName)
+{
+	fs::path workingDirectory = fs::current_path();
+	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
+	bool verbose = argArc.exists("-v");
+
+	if (verbose)
+		cout << "\nHeader file:\n";
+
+	if (auto result = argArc.find("-d"); result.found)
+	{
+		createFile(desiredName, "hpp", generateHeaderContent(result.it->second), &workingDirectory, &verbose);
+		if (verbose)
+			cout << green("Successfully created with definition.\n");
+		return;
+	}
+
+	createFile(desiredName, "hpp", &workingDirectory, &verbose);
+	if (verbose)
+		cout << green("Successfully created.\n");
+}
+
+void createSourceFile(string *desiredName)
+{
+	fs::path workingDirectory = fs::current_path();
+	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
+	bool verbose = argArc.exists("-v");
+
+	if (verbose)
+		cout << "\nSource file:\n";
+
+	if (argArc.exists("-i"))
+	{
+		createFile(desiredName, "cpp", generateSourceContent(*desiredName), &workingDirectory, &verbose);
+		if (verbose)
+			cout << green("Successfully created with header.\n");
+		return;
+	}
+
+	createFile(desiredName, "cpp", &workingDirectory, &verbose);
+	if (verbose)
+		cout << green("Successfully created.\n");
 }
 
 void createFile(string *desiredName, string extension, string fileContents, fs::path *workingDirectory, bool *verbose)
