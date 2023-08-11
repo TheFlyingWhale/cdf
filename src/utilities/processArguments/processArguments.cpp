@@ -22,27 +22,33 @@ int proccessArguments(int &argc, char *argv[])
 		}
 
 		string strArg = string(argv[i]);
+
+		// Create header file
 		if (strArg == "-h")
 		{
 			argArc.addFlag("-h", true);
 		}
 
+		// Create source file
 		if (strArg == "-s")
 		{
 			argArc.addFlag("-s", true);
 		}
 
+		// Add include to source file
 		if (strArg == "-i")
 		{
 			argArc.addFlag("-i", true);
 		}
 
+		// Verbose prints
 		if (strArg == "-v")
 		{
 			argArc.addFlag("-v", true);
 		}
 
-		// If -d is provided but -h is not some error should occur
+		// Add definition to header file
+		// If -d is provided but -h is not an error shall occur
 		if (strArg == "-d")
 		{
 			if (i + 1 >= argc)
