@@ -9,10 +9,10 @@ namespace fs = filesystem;
 
 int createDir(string *desiredName)
 {
-	ArgumentsArchive &aa = ArgumentsArchive::getInstance();
+	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
 
 	bool doesDirExist = fs::exists(*desiredName);
-	if (aa.exists("-v"))
+	if (argArc.exists("-v"))
 	{
 		cout << "\n";
 
@@ -24,7 +24,7 @@ int createDir(string *desiredName)
 	}
 
 	bool isExistingDirEmpty = doesDirExist ? fs::is_empty(*desiredName) : false;
-	if (aa.exists("-v") && doesDirExist)
+	if (argArc.exists("-v") && doesDirExist)
 	{
 		if (isExistingDirEmpty)
 			cout << green("Existing directory is empty and will be replaced.\n");
@@ -39,7 +39,7 @@ int createDir(string *desiredName)
 	try
 	{
 		fs::create_directory(*desiredName);
-		if (aa.exists("-v"))
+		if (argArc.exists("-v"))
 			cout << green("Directory created\n");
 	}
 	catch (const fs::filesystem_error &e)

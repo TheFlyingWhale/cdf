@@ -8,7 +8,7 @@ using namespace std;
 
 int proccessArguments(int &argc, char *argv[])
 {
-	ArgumentsArchive &aa = ArgumentsArchive::getInstance();
+	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
 
 	for (int i = 1; i < argc; i++)
 	{
@@ -24,22 +24,22 @@ int proccessArguments(int &argc, char *argv[])
 		string strArg = string(argv[i]);
 		if (strArg == "-h")
 		{
-			aa.addFlag("-h", true);
+			argArc.addFlag("-h", true);
 		}
 
 		if (strArg == "-s")
 		{
-			aa.addFlag("-s", true);
+			argArc.addFlag("-s", true);
 		}
 
 		if (strArg == "-i")
 		{
-			aa.addFlag("-i", true);
+			argArc.addFlag("-i", true);
 		}
 
 		if (strArg == "-v")
 		{
-			aa.addFlag("-v", true);
+			argArc.addFlag("-v", true);
 		}
 
 		// If -d is provided but -h is not some error should occur
@@ -57,7 +57,7 @@ int proccessArguments(int &argc, char *argv[])
 				return 0;
 			}
 
-			aa.addFlag("-d", argv[i + 1]);
+			argArc.addFlag("-d", argv[i + 1]);
 		}
 	}
 

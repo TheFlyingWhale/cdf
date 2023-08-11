@@ -11,15 +11,15 @@ namespace fs = filesystem;
 void createFiles(string *desiredName)
 {
 	fs::path workingDirectory = fs::current_path();
-	ArgumentsArchive &aa = ArgumentsArchive::getInstance();
-	bool verbose = aa.exists("-v");
+	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
+	bool verbose = argArc.exists("-v");
 
-	if (aa.exists("-h"))
+	if (argArc.exists("-h"))
 	{
 		if (verbose)
 			cout << "\nHeader file:\n";
 
-		if (auto result = aa.find("-d"); result.found)
+		if (auto result = argArc.find("-d"); result.found)
 		{
 			createFile(desiredName, "hpp", generateHeaderContent(result.it->second), &workingDirectory, &verbose);
 			if (verbose)
@@ -34,13 +34,13 @@ void createFiles(string *desiredName)
 		}
 	}
 
-	if (aa.exists("-s"))
+	if (argArc.exists("-s"))
 	{
 		if (verbose)
 			cout << "\nSource file:\n";
 
 		// Handle creation of source file
-		if (aa.exists("-i"))
+		if (argArc.exists("-i"))
 		{
 			createFile(desiredName, "cpp", generateSourceContent(*desiredName), &workingDirectory, &verbose);
 			if (verbose)

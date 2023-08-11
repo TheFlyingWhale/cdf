@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 			return 1;
 		}
 
-		ArgumentsArchive &aa = ArgumentsArchive::getInstance();
+		ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
 		string desiredName = argv[1];
 
 		if (!proccessArguments(argc, argv))
@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
 			return 1;
 		}
 
-		if (aa.exists("-v"))
-			aa.printFlags();
+		if (argArc.exists("-v"))
+			argArc.printFlags();
 
 		if (!createDir(&desiredName))
 			return 1;
