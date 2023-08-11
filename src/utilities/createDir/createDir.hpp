@@ -7,4 +7,7 @@ using namespace std;
 
 int createDir(string *desiredName);
 
+void printExistsInfo(int doesDirExist);
+void printIsExistingInfo(int isExistingDirEmpty);
+
 #endif

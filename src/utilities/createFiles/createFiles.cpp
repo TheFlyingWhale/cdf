@@ -15,14 +15,10 @@ void createFiles(string *desiredName)
 	bool verbose = argArc.exists("-v");
 
 	if (argArc.exists("-h"))
-	{
 		createHeaderFile(desiredName);
-	}
 
 	if (argArc.exists("-s"))
-	{
 		createSourceFile(desiredName);
-	}
 }
 
 void createHeaderFile(string *desiredName)
@@ -36,13 +32,13 @@ void createHeaderFile(string *desiredName)
 
 	if (auto result = argArc.find("-d"); result.found)
 	{
-		createFile(desiredName, "hpp", generateHeaderContent(result.it->second), &workingDirectory, &verbose);
+		createFile(desiredName, "hpp", generateHeaderContent(result.it->second), &workingDirectory);
 		if (verbose)
 			cout << green("Successfully created with definition.\n");
 		return;
 	}
 
-	createFile(desiredName, "hpp", &workingDirectory, &verbose);
+	createFile(desiredName, "hpp", &workingDirectory);
 	if (verbose)
 		cout << green("Successfully created.\n");
 }
@@ -58,40 +54,46 @@ void createSourceFile(string *desiredName)
 
 	if (argArc.exists("-i"))
 	{
-		createFile(desiredName, "cpp", generateSourceContent(*desiredName), &workingDirectory, &verbose);
+		createFile(desiredName, "cpp", generateSourceContent(*desiredName), &workingDirectory);
 		if (verbose)
 			cout << green("Successfully created with header.\n");
 		return;
 	}
 
-	createFile(desiredName, "cpp", &workingDirectory, &verbose);
+	createFile(desiredName, "cpp", &workingDirectory);
 	if (verbose)
 		cout << green("Successfully created.\n");
 }
 
-void createFile(string *desiredName, string extension, string fileContents, fs::path *workingDirectory, bool *verbose)
+void createFile(string *desiredName, string extension, string fileContents, fs::path *workingDirectory)
 {
+	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
+	bool verbose = argArc.exists("-v");
+
 	ofstream file((*workingDirectory).string() + "/" + *desiredName + "/" + *desiredName + "." + extension);
-	if (*verbose)
+	if (verbose)
 		cout << "Created.\n";
 
 	file << fileContents;
-	if (*verbose)
+	if (verbose)
 		cout << "Contents inserted.\n";
 
 	file.close();
-	if (*verbose)
+	if (verbose)
 		cout << "File closed.\n";
 }
 
-void createFile(string *desiredName, string extension, fs::path *workingDirectory, bool *verbose)
+void createFile(string *desiredName, string extension, fs::path *workingDirectory)
 {
+	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
+	bool verbose = argArc.exists("-v");
+
 	ofstream file((*workingDirectory).string() + "/" + *desiredName + "/" + *desiredName + "." + extension);
-	if (*verbose)
+	if (verbose)
 		cout << "Created.\n";
 
 	file.close();
-	if (*verbose)
+	if (verbose)
 		cout << "File closed.\n";
 }
 

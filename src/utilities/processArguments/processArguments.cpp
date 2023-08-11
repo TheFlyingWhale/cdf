@@ -48,7 +48,7 @@ int proccessArguments(int &argc, char *argv[])
 		}
 
 		// Add definition to header file
-		// If -d is provided but -h is not an error shall occur
+		// If -d is provided but -h is not an error should occur FIX
 		if (strArg == "-d")
 		{
 			if (i + 1 >= argc)

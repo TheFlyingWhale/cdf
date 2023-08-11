@@ -10,8 +10,8 @@ namespace fs = filesystem;
 
 void createFiles(string *desiredName);
 
-void createFile(string *desiredName, string extension, string fileContents, fs::path *workingDirectory, bool *verbose);
-void createFile(string *desiredName, string extension, fs::path *workingDirectory, bool *verbose);
+void createFile(string *desiredName, string extension, string fileContents, fs::path *workingDirectory);
+void createFile(string *desiredName, string extension, fs::path *workingDirectory);
 
 void createHeaderFile(string *desiredName);
 void createSourceFile(string *desiredName);
