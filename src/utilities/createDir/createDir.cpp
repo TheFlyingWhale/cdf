@@ -1,45 +1,48 @@
 #include "createDir.hpp"
-#include "../color/color.hpp"
-#include "../../modules/modules.hpp"
-#include <iostream>
-#include <filesystem>
+#include "../desiredName/desiredName.hpp"
 
 using namespace std;
 namespace fs = filesystem;
 
-int createDir(string *desiredName)
+void createDir()
 {
-	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
-	int verbose = argArc.exists("-v");
+	confirmActionValidity();
+	createDirectory();
+}
 
-	bool doesDirExist = fs::exists(*desiredName);
-	if (verbose)
-		printExistsInfo(doesDirExist);
+void createDirectory()
+{
+	fs::create_directory(desiredName());
+	if (isVerbose())
+		cout << green("Directory created\n");
+}
 
-	bool isExistingDirEmpty = doesDirExist ? fs::is_empty(*desiredName) : false;
-	if (verbose && doesDirExist)
-		printIsExistingInfo(isExistingDirEmpty);
+void confirmActionValidity()
+{
+	bool doesDirExist = checkIfDirExists();
+	if (!doesDirExist)
+		return;
 
-	if (doesDirExist && !isExistingDirEmpty)
-		return 0;
+	confirmDirIsEmpty();
+}
 
-	try
-	{
-		fs::create_directory(*desiredName);
-		if (verbose)
-			cout << green("Directory created\n");
-	}
-	catch (const fs::filesystem_error &e)
-	{
-		cout << red("Failed to create directory\n");
-		printf("Error: %s", e.what());
-	}
-	catch (...)
-	{
-		cout << red("Unknown error occurred. Failed to create directory\n");
-	}
+int checkIfDirExists()
+{
+	bool exists = fs::exists(desiredName());
+	if (isVerbose())
+		printExistsInfo(exists);
 
-	return 1;
+	return exists;
+}
+
+void confirmDirIsEmpty()
+{
+	bool isEmpty = fs::is_empty(desiredName());
+	if (!isEmpty)
+		throw runtime_error("Existing directory is not empty and will not be replaced");
+
+	if (isVerbose())
+		cout << green("Existing directory is empty and will be replaced.") << endl;
 }
 
 void printExistsInfo(int doesDirExist)
@@ -51,15 +54,4 @@ void printExistsInfo(int doesDirExist)
 
 	if (!doesDirExist)
 		cout << green("Directory does not exist.\n");
-}
-
-void printIsExistingInfo(int isExistingDirEmpty)
-{
-	if (isExistingDirEmpty)
-		cout << green("Existing directory is empty and will be replaced.\n");
-
-	if (!isExistingDirEmpty)
-	{
-		cout << red("Existing directory is not empty and will not be replaced\n");
-	}
 }

@@ -1,10 +1,8 @@
 #include "utilities/utilities.hpp"
 #include "modules/modules.hpp"
-#include "errors/errors.hpp"
-#include "unordered_map"
+#include "main.hpp"
 
-#include <iostream>
-#include <fstream>
+#include <exception>
 
 using namespace std;
 
@@ -12,32 +10,22 @@ int main(int argc, char *argv[])
 {
 	try
 	{
-		if (argc < 2)
-		{
-			printInstructions();
-			return 1;
-		}
-
-		ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
-		string desiredName = argv[1];
-
-		if (!proccessArguments(argc, argv))
-		{
-			cout << "Invalid arguments provided\n\n";
-			printInstructions();
-			return 1;
-		}
-
-		if (argArc.exists("-v"))
-			argArc.printFlags();
-
-		if (!createDir(&desiredName))
-			return 1;
-
-		createFiles(&desiredName);
+		program(argc, argv);
 	}
 	catch (const exception &ex)
 	{
-		errorHandler(ex);
+		cout << red(ex.what()) << endl;
 	}
+	catch (...)
+	{
+		cout << red("Unkown and unhandled error occurred") << endl;
+	}
+}
+
+void program(int argc, char *argv[])
+{
+	string desiredName = argv[1];
+	proccessArguments(argc, argv);
+	createDir();
+	createFiles();
 }
