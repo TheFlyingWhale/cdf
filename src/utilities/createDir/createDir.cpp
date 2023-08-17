@@ -1,45 +1,57 @@
 #include "createDir.hpp"
-#include "../color/color.hpp"
-#include "../../modules/modules.hpp"
-#include <iostream>
-#include <filesystem>
+#include "../desiredName/desiredName.hpp"
 
 using namespace std;
 namespace fs = filesystem;
 
-int createDir(string *desiredName)
+void createDir()
 {
-	ArgumentsArchive &aa = ArgumentsArchive::getInstance();
+	confirmActionValidity();
+	createDirectory();
+}
 
-	bool doesDirExist = fs::exists(*desiredName);
-	if (aa.exists("-v"))
-	{
-		cout << "\n";
-
-		if (doesDirExist)
-			cout << red("Directory already exists.\n");
-
-		if (!doesDirExist)
-			cout << green("Directory does not exist.\n");
-	}
-
-	bool isExistingDirEmpty = doesDirExist ? fs::is_empty(*desiredName) : false;
-	if (aa.exists("-v") && doesDirExist)
-	{
-		if (isExistingDirEmpty)
-			cout << green("Existing directory is empty and will be replaced.\n");
-
-		if (!isExistingDirEmpty)
-		{
-			cout << red("Existing directory is not empty and will not be replaced\n");
-			return 0;
-		}
-	}
-
-	fs::create_directory(*desiredName);
-
-	if (aa.exists("-v"))
+void createDirectory()
+{
+	fs::create_directory(desiredName());
+	if (isVerbose())
 		cout << green("Directory created\n");
+}
 
-	return 1;
+void confirmActionValidity()
+{
+	bool doesDirExist = checkIfDirExists();
+	if (!doesDirExist)
+		return;
+
+	confirmDirIsEmpty();
+}
+
+int checkIfDirExists()
+{
+	bool exists = fs::exists(desiredName());
+	if (isVerbose())
+		printExistsInfo(exists);
+
+	return exists;
+}
+
+void confirmDirIsEmpty()
+{
+	bool isEmpty = fs::is_empty(desiredName());
+	if (!isEmpty)
+		throw runtime_error("Existing directory is not empty and will not be replaced");
+
+	if (isVerbose())
+		cout << green("Existing directory is empty and will be replaced.") << endl;
+}
+
+void printExistsInfo(int doesDirExist)
+{
+	cout << "\n";
+
+	if (doesDirExist)
+		cout << red("Directory already exists.\n");
+
+	if (!doesDirExist)
+		cout << green("Directory does not exist.\n");
 }

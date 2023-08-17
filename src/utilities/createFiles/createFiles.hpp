@@ -8,12 +8,15 @@
 using namespace std;
 namespace fs = filesystem;
 
-void createFiles(string *desiredName);
+void createFiles();
 
-void createFile(string *desiredName, string extension, string fileContents, fs::path *workingDirectory, bool *verbose);
-void createFile(string *desiredName, string extension, fs::path *workingDirectory, bool *verbose);
+void createFile(string extension, string fileContents);
+void createFile(string extension);
+
+void createHeaderFile();
+void createSourceFile();
 
 string generateHeaderContent(string definition);
-string generateSourceContent(string desiredName);
+string generateSourceContent();
 
 #endif

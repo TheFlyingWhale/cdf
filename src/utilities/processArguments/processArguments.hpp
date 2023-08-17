@@ -4,6 +4,6 @@
 #include <string>
 using namespace std;
 
-int proccessArguments(int &argc, char *argv[]);
+void proccessArguments(int &argc, char *argv[]);
 
 #endif

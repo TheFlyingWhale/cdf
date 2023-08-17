@@ -4,7 +4,8 @@
 		"iosfwd": "cpp",
 		"filesystem": "cpp",
 		"__node_handle": "cpp",
-		"iostream": "cpp"
+		"iostream": "cpp",
+		"stdexcept": "cpp"
 	},
 	"cSpell.words": ["cloneable"]
 }

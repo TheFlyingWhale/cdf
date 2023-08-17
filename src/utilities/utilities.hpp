@@ -6,5 +6,6 @@
 #include "printInstructions/printInstructions.hpp"
 #include "createDir/createDir.hpp"
 #include "createFiles/createFiles.hpp"
+#include "isVerbose/isVerbose.hpp"
 
 #endif
