@@ -13,26 +13,29 @@ namespace fs = filesystem;
 
 void createFiles()
 {
-	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
-	if (argArc.exists("-h"))
+	ArgumentsArchive &argumentsArchive = ArgumentsArchive::getInstance();
+
+	if (argumentsArchive.shouldIncludeHeader())
 		createHeaderFile();
-	if (argArc.exists("-s"))
+
+	if (argumentsArchive.shouldIncludeSourceFile())
 		createSourceFile();
 }
 
 void createHeaderFile()
 {
-	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
+	ArgumentsArchive &argumentsArchive = ArgumentsArchive::getInstance();
 	if (isVerbose())
 		cout << "\nHeader file:\n";
-	if (auto result = argArc.find("-d"); result.found)
+
+	if (argumentsArchive.shouldIncludeDefinition())
 	{
-		createFile("hpp", generateHeaderContent(result.it->second));
+		createFile("hpp", createDefinitionString(argumentsArchive.getDefinition()));
 		if (isVerbose())
 			cout << green("Successfully created with definition.\n");
-
 		return;
 	}
+
 	createFile("hpp");
 	if (isVerbose())
 		cout << green("Successfully created.\n");
@@ -40,16 +43,18 @@ void createHeaderFile()
 
 void createSourceFile()
 {
-	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
+	ArgumentsArchive &argumentsArchive = ArgumentsArchive::getInstance();
 	if (isVerbose())
 		cout << "\nSource file:\n";
-	if (argArc.exists("-i"))
+
+	if (argumentsArchive.shouldIncludeHeaderInSource())
 	{
-		createFile("cpp", generateSourceContent());
+		createFile("cpp", createIncludeString());
 		if (isVerbose())
 			cout << green("Successfully created with header.\n");
 		return;
 	}
+	
 	createFile("cpp");
 	if (isVerbose())
 		cout << green("Successfully created.\n");
@@ -78,12 +83,12 @@ void createFile(string extension)
 		cout << "File closed.\n";
 }
 
-string generateHeaderContent(string definition)
+string createDefinitionString(string definition)
 {
 	return "#ifndef " + definition + "\n#define " + definition + "\n\n#endif\n";
 }
 
-string generateSourceContent()
+string createIncludeString()
 {
 	return "#include \"" + desiredName() + ".hpp\"\n";
 }

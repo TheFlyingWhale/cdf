@@ -3,6 +3,6 @@
 
 string desiredName()
 {
-	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
-	return argArc.find("DESIRED_NAME").it->second;
+	ArgumentsArchive &argumentsArchive = ArgumentsArchive::getInstance();
+	return argumentsArchive.find("DESIRED_NAME").it->second;
 }

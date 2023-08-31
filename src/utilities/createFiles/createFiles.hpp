@@ -16,7 +16,7 @@ void createFile(string extension);
 void createHeaderFile();
 void createSourceFile();
 
-string generateHeaderContent(string definition);
-string generateSourceContent();
+string createDefinitionString(string definition);
+string createIncludeString();
 
 #endif

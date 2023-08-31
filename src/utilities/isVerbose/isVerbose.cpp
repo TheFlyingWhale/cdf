@@ -3,6 +3,6 @@
 
 int isVerbose()
 {
-	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
-	return argArc.exists("-v");
+	ArgumentsArchive &argumentsArchive = ArgumentsArchive::getInstance();
+	return argumentsArchive.exists("-v");
 }

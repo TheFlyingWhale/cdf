@@ -74,6 +74,35 @@ public:
 		return {it, it != valuedFlags.end()};
 	}
 
+	string getDefinition()
+	{
+		FindValue definition = find("-d");
+		if (!definition.found)
+			throw runtime_error("Could not find definition");
+
+		return definition.it->second;
+	}
+
+	bool shouldIncludeDefinition()
+	{
+		return exists("-d");
+	}
+
+	bool shouldIncludeHeader()
+	{
+		return exists("-h");
+	}
+
+	bool shouldIncludeSourceFile()
+	{
+		return exists("-s");
+	}
+
+	bool shouldIncludeHeaderInSource()
+	{
+		return exists("-i");
+	}
+
 	void printFlags()
 	{
 		cout << "Registered flags:\n";

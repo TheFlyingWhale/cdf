@@ -12,7 +12,7 @@ using namespace std;
 
 void proccessArguments(int &argc, char *argv[])
 {
-	ArgumentsArchive &argArc = ArgumentsArchive::getInstance();
+	ArgumentsArchive &argumentsArchive = ArgumentsArchive::getInstance();
 
 	if (argc < 2)
 	{
@@ -20,7 +20,7 @@ void proccessArguments(int &argc, char *argv[])
 		throw runtime_error("Invalid input, see instructions");
 	}
 
-	argArc.addFlag("DESIRED_NAME", argv[1]);
+	argumentsArchive.addFlag("DESIRED_NAME", argv[1]);
 
 	for (int i = 1; i < argc; i++)
 	{
@@ -37,25 +37,25 @@ void proccessArguments(int &argc, char *argv[])
 		// Create header file
 		if (strArg == "-h")
 		{
-			argArc.addFlag("-h", true);
+			argumentsArchive.addFlag("-h", true);
 		}
 
 		// Create source file
 		if (strArg == "-s")
 		{
-			argArc.addFlag("-s", true);
+			argumentsArchive.addFlag("-s", true);
 		}
 
 		// Add include to source file
 		if (strArg == "-i")
 		{
-			argArc.addFlag("-i", true);
+			argumentsArchive.addFlag("-i", true);
 		}
 
 		// Verbose prints
 		if (strArg == "-v")
 		{
-			argArc.addFlag("-v", true);
+			argumentsArchive.addFlag("-v", true);
 		}
 
 		// Add definition to header file
@@ -72,10 +72,10 @@ void proccessArguments(int &argc, char *argv[])
 				throw runtime_error("-d was followed by [" + string(argv[i + 1]) + "] which is not a valid definition");
 			}
 
-			argArc.addFlag("-d", argv[i + 1]);
+			argumentsArchive.addFlag("-d", argv[i + 1]);
 		}
 	}
 
-	if (argArc.exists("-v"))
-		argArc.printFlags();
+	if (argumentsArchive.exists("-v"))
+		argumentsArchive.printFlags();
 }
