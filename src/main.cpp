@@ -12,10 +12,12 @@ int main(int argc, char *argv[])
 	{
 		program(argc, argv);
 	}
+
 	catch (const exception &ex)
 	{
 		cout << red(ex.what()) << endl;
 	}
+
 	catch (...)
 	{
 		cout << red("Unkown and unhandled error occurred") << endl;
@@ -24,7 +26,6 @@ int main(int argc, char *argv[])
 
 void program(int argc, char *argv[])
 {
-	string desiredName = argv[1];
 	proccessArguments(argc, argv);
 	createDir();
 	createFiles();
